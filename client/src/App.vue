@@ -1,25 +1,19 @@
 <template>
-  <MemberBoard />
+  <div class="content">
+    <nav class="mb-10">
+      <router-link class="mx-3 underline" v-for="item in menu" :to="item.path" :key="item.name">
+        {{ item.name }}
+      </router-link>
+    </nav>
+  </div>
+  <router-view />
 </template>
 
-<script>
-import MemberBoard from "./components/MemberBoard.vue";
+<script setup>
+import { ref } from "vue";
 
-export default {
-  name: "App",
-  components: {
-    MemberBoard
-},
-};
+const menu = ref([
+  { name: "Home", path: "/" },
+  { name: "Member", path: "/member" },
+]);
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

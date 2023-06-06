@@ -53,8 +53,8 @@ public class MemberServiceImpl implements MemberService {
      * @return
      */
     @Override
-    public CheckResult<Member> updateMember(Member member) {
-        Member existingMember = memberRepository.findMemberById(member.getId());
+    public CheckResult<Member> updateMember(Long id, Member member) {
+        Member existingMember = memberRepository.findMemberById(id);
 
         if (existingMember == null) {
             return new CheckResult<Member>(false, "Non-existent member", null);
@@ -91,12 +91,12 @@ public class MemberServiceImpl implements MemberService {
     /**
      * (read) 이메일로 멤버 가져오기
      *
-     * @param member
+     * @param id
      * @return
      */
     @Override
-    public CheckResult<Member> getMemberById(Member member) {
-        Member targetMember = memberRepository.findMemberById(member.getId());
+    public CheckResult<Member> getMemberById(Long id) {
+        Member targetMember = memberRepository.findMemberById(id);
 
         if (targetMember == null) {
             return new CheckResult<Member>(false, "no member", null);

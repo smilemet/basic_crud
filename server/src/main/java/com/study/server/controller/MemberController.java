@@ -4,6 +4,7 @@ import com.study.server.classes.CheckResult;
 import com.study.server.entity.Member;
 import com.study.server.classes.AddMemberRequest;
 import com.study.server.service.MemberService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,8 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Member> getMemberByEmail(@RequestBody Member member) {
-        // TODO: id를 이용하는 것으로 수정
-        CheckResult<Member> result = memberService.getMemberById(member);
+    public ResponseEntity<Member> getMemberByEmail(@PathVariable("id") Long id) {
+        CheckResult<Member> result = memberService.getMemberById(id);
 
         if (!result.isSucceed()) {
             return ResponseEntity.badRequest().body(null);
@@ -48,8 +48,8 @@ public class MemberController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Member> updateMember(@RequestBody Member member) {
-        CheckResult<Member> result = memberService.updateMember(member);
+    public ResponseEntity<Member> updateMember(@PathParam("id") Long id, @RequestBody Member member) {
+        CheckResult<Member> result = memberService.updateMember(id, member);
 
         if (!result.isSucceed()) {
             return ResponseEntity.badRequest().body(null);
